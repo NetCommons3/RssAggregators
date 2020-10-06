@@ -1,0 +1,34 @@
+{
+    "name": "netcommons/rss-aggregators",
+    "description": "RssAggregators for NetCommons3",
+    "homepage": "http://www.netcommons.org/",
+    "extra": {
+        "installer-paths": {
+            "app/Plugin/{$name}": ["type:cakephp-plugin"]
+        }
+    },
+    "require": {
+        "cakedc/migrations": "~2.2",
+        "netcommons/net-commons": "@dev"
+    },
+    "license": "LicenseRef-NetCommons",
+    "license-ref-net-commons": "https://raw.githubusercontent.com/NetCommons3/NetCommons3/master/license.txt",
+    "authors": [
+        {
+            "name": "NetCommons Community",
+            "homepage": "https://github.com/NetCommons3/RssAggregators/graphs/contributors"
+        }
+    ],
+    "type":        "cakephp-plugin",
+    "keywords":    ["cakephp", "rss_aggregators"],
+    "config": {
+        "vendor-dir": "vendors"
+    },
+    "autoload": {
+      "psr-4": {
+        "NetCommons3\\RssAggregators\\": "",
+        "NetCommons3\\RssAggregators\\TestCase\\": "Test/Case/"
+      }
+    }
+}
+
