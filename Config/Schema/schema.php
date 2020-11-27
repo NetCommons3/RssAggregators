@@ -22,7 +22,6 @@ class RssAggregatorsSchema extends CakeSchema {
 		'city_id' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'リンク', 'charset' => 'utf8mb4'),
 		'city' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'リンク', 'charset' => 'utf8mb4'),
 		'type' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'リンク', 'charset' => 'utf8mb4'),
-		'feed_updated' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => '更新日時'),
 		'rss_aggregators_item_count' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'comment' => 'item count'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)

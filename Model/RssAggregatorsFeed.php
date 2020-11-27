@@ -104,10 +104,6 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 
 		$conditions = array(
 			'AND' => array(
-				'OR' => array(
-					array('feed_updated <' => $date->format('Y-m-d H:i:s')),
-					array('feed_updated' => NULL),
-				),
 				'NOT' => array('url' => $ignore),
 			),
 		);
@@ -137,9 +133,6 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 				$this->RssAggregatorsItem->saveFromJson($item);
 				$item_count++;
 			}
-			$date = new DateTime();
-			$school["RssAggregatorsFeed"]["feed_updated"] = $date->format('Y-m-d H:i:s');
-			$this->updateRssAggregatorsFeed($school["RssAggregatorsFeed"]);
 		}
 		$count["items"] = $item_count;
 		return $count;
@@ -168,7 +161,6 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 	public function updateRssAggregatorsFeed($data) {
 		try {
 			$this->begin();
-			$data["feed_updated"] = NULL;
 			$this->set($data);
 			$this->save();
 			$this->commit();

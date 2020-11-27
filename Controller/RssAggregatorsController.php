@@ -115,7 +115,6 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 		);
 
 		if (isset($rssAggregatorSetting['school']) && '全ての学校' != $rssAggregatorSetting['school']) {
-			$rssAggregatorSetting['school'] = $rssAggregatorSetting['school'];
 			$items_conditions['school'] = $rssAggregatorSetting['school'];
 		} else {
 			$rssAggregatorSetting['school'] = '全ての学校';

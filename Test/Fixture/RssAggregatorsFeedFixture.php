@@ -31,7 +31,6 @@ class RssAggregatorsFeedFixture extends CakeTestFixture {
 		'city_id' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'リンク', 'charset' => 'utf8mb4'),
 		'city' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'リンク', 'charset' => 'utf8mb4'),
 		'type' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'リンク', 'charset' => 'utf8mb4'),
-		'feed_updated' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => '更新日時'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -55,8 +54,7 @@ class RssAggregatorsFeedFixture extends CakeTestFixture {
 			'prefecture' => 'Lorem ipsum dolor sit amet',
 			'city_id' => 'Lorem ipsum dolor sit amet',
 			'city' => 'Lorem ipsum dolor sit amet',
-			'type' => 'Lorem ipsum dolor sit amet',
-			'feed_updated' => '2020-11-24 05:29:11'
+			'type' => 'Lorem ipsum dolor sit amet'
 		),
 	);
 

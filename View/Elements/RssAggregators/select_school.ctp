@@ -16,12 +16,12 @@
 		<span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu" role="menu">
-		<?php foreach ($rssAggregatorSchools as $key => $val) : ?>
+		<?php foreach ($rssAggregatorSchools as $school => $count) : ?>
 			<li>
 					<?php echo $this->Paginator->link(
-						$key . ' <span class="badge">' . $val . '</span>',
+						$school . ' <span class="badge">' . $count . '</span>',
 						Hash::merge($this->Paginator->params['named'],
-						array('school' => $key)),
+						array('school' => $school)),
 						array('escape' => false));
 					?>
 			</li>
