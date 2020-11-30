@@ -1,9 +1,12 @@
 <?php
+
 /**
  * RssAggregators Controller
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @author Wataru Nishimoto <watura@willbooster.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
@@ -61,15 +64,15 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			'display_number' => 5,
 		);
 
-		if(isset($this->params['named']["limit"])) {
+		if (isset($this->params['named']["limit"])) {
 			$rssAggregatorSetting["display_number"] = $this->params['named']["limit"];
 		}
 
-		if(isset($this->params['named']["prefecture_id"])) {
+		if (isset($this->params['named']["prefecture_id"])) {
 			$rssAggregatorSetting["prefecture_id"] = $this->params['named']["prefecture_id"];
 		}
 
-		if(isset($this->params['named']["school"])) {
+		if (isset($this->params['named']["school"])) {
 			$rssAggregatorSetting["school"] = $this->params['named']["school"];
 		}
 
@@ -90,61 +93,66 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			$this->view = 'cannot_edit';
 		}
 
-		$rssAggregatorItems = $this->get();
+		$rssAggregatorItems = $this->__getFeedInfomation();
 		$this->set('rssAggregatorItems', $rssAggregatorItems);
 	}
 
 /**
- * Get site information
+ * Get feed information
  *
  * @return array
  */
-	private function get() {
+	private function __getFeedInfomation() {
 		$rssAggregatorSetting = $this->viewVars['rssAggregatorSetting'];
 
-		$items_conditions = array(
+		$itemsConds = array(
 			'plugin_key' => 'blogs',
 		);
 
-		$schools_conditions = array(
+		$schoolsConds = array(
 			'rss_aggregators_item_count >' => 0,
 		);
 
-		$prefectures_conditions = array(
+		$prefecturesConds = array(
 			'rss_aggregators_item_count >' => 0,
 		);
 
-		if (isset($rssAggregatorSetting['school']) && '全ての学校' != $rssAggregatorSetting['school']) {
-			$items_conditions['school'] = $rssAggregatorSetting['school'];
+		if (
+			isset($rssAggregatorSetting['school'])
+			&& '全ての学校' != $rssAggregatorSetting['school']
+		) {
+			$itemsConds['school'] = $rssAggregatorSetting['school'];
 		} else {
 			$rssAggregatorSetting['school'] = '全ての学校';
 		}
 
-		if (isset($rssAggregatorSetting['prefecture_id']) && $rssAggregatorSetting['prefecture_id'] != '0') {
-			$items_conditions['prefecture_id'] = $rssAggregatorSetting['prefecture_id'];
-			$schools_conditions['prefecture_id'] = $rssAggregatorSetting['prefecture_id'];
+		if (
+			isset($rssAggregatorSetting['prefecture_id'])
+			&& $rssAggregatorSetting['prefecture_id'] != '0'
+		) {
+			$itemsConds['prefecture_id'] = $rssAggregatorSetting['prefecture_id'];
+			$schoolsConds['prefecture_id'] = $rssAggregatorSetting['prefecture_id'];
 		} else {
 			$rssAggregatorSetting['prefecture_id'] = '0';
 		}
 
 		$items = $this->RssAggregatorsItem->find('all', array(
-			'conditions' => $items_conditions,
+			'conditions' => $itemsConds,
 			'order' => array('publish_start DESC'),
-			'limit' => (int) $rssAggregatorSetting['display_number'],
+			'limit' => (int)$rssAggregatorSetting['display_number'],
 		));
 
 		$schools = $this->RssAggregatorsFeed->find('list', array(
 			'fields' => array('school', 'rss_aggregators_item_count'),
 			'order' => array('rss_aggregators_item_count DESC'),
-			'conditions' => $schools_conditions,
+			'conditions' => $schoolsConds,
 		));
 
 		$prefectures = $this->RssAggregatorsFeed->find('list', array(
 			'fields' => array('prefecture_id', 'prefecture'),
-			'conditions' => $prefectures_conditions,
+			'conditions' => $prefecturesConds,
 			'order' => array('prefecture_id')
 		));
-
 
 		$this->set('rssAggregatorSetting', $rssAggregatorSetting);
 		$this->set('rssAggregatorSchools', Hash::merge(array('全ての学校' => ''), $schools));

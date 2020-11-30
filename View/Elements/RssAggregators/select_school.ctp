@@ -1,9 +1,12 @@
 <?php
+
 /**
  * 学校の絞り込み
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @author Wataru Nishimoto <watura@willbooster.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
@@ -18,12 +21,15 @@
 	<ul class="dropdown-menu" role="menu">
 		<?php foreach ($rssAggregatorSchools as $school => $count) : ?>
 			<li>
-					<?php echo $this->Paginator->link(
-						$school . ' <span class="badge">' . $count . '</span>',
-						Hash::merge($this->Paginator->params['named'],
-						array('school' => $school)),
-						array('escape' => false));
-					?>
+				<?php echo $this->Paginator->link(
+					$school . ' <span class="badge">' . $count . '</span>',
+					Hash::merge(
+						$this->Paginator->params['named'],
+						array('school' => $school)
+					),
+					array('escape' => false)
+				);
+				?>
 			</li>
 		<?php endforeach; ?>
 	</ul>

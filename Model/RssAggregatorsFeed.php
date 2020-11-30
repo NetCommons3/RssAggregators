@@ -1,14 +1,16 @@
 <?php
+
 /**
  * RssAggregatorsFeed Model
  *
  * @property RssAggregatorsItem $RssAggregatorsItem
  *
-* @author Noriko Arai <arai@nii.ac.jp>
-* @author Your Name <yourname@domain.com>
-* @link http://www.netcommons.org NetCommons Project
-* @license http://www.netcommons.org/license.txt NetCommons License
-* @copyright Copyright 2014, NetCommons Project
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Wataru Nishimoto <watura@willbooster.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('RssAggregatorsAppModel', 'RssAggregators.Model');
@@ -25,7 +27,6 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
  * @see http://php.net/manual/ja/dateinterval.construct.php
  */
 	const CACHE_TIME = 'PT1H';
-
 
 /**
  * Use database config
@@ -60,8 +61,6 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 			),
 		),
 	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * hasMany associations
@@ -99,7 +98,7 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 		$date->sub(new DateInterval(RssAggregatorsFeed::CACHE_TIME));
 
 		$ignore = [
-			"oshu-public-elementary-school.edumap.jp" // Todo: Update
+			"oshu-public-elementary-school.edumap.jp"
 		];
 
 		$conditions = array(
@@ -115,13 +114,13 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 
 		$count = array('feeds' => count($feeds));
 
-		$item_count = 0;
-		foreach($feeds as $school) {
-			if(in_array($school["RssAggregatorsFeed"]["url"], $ignore)) {
+		$itemCount = 0;
+		foreach ($feeds as $school) {
+			if (in_array($school["RssAggregatorsFeed"]["url"], $ignore)) {
 				continue;
 			}
-			$url = 'https://'. $school["RssAggregatorsFeed"]["url"];
-			var_dump($url . '/topics/topics/index/days:7.json');
+			$url = 'https://' . $school["RssAggregatorsFeed"]["url"];
+			print ($url . "/topics/topics/index/days:7.json\n");
 			$feed = $this->__fetchJsonFile($url . '/topics/topics/index/days:7.json');
 			if (!isset($feed["topics"])) {
 				continue;
@@ -131,16 +130,17 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 				$item["Topic"]['school_url'] = $url;
 				$item["Topic"]['rss_aggregators_feed_id'] = $school["RssAggregatorsFeed"]["id"];
 				$this->RssAggregatorsItem->saveFromJson($item);
-				$item_count++;
+				$itemCount++;
 			}
 		}
-		$count["items"] = $item_count;
+		$count["items"] = $itemCount;
 		return $count;
 	}
 
 /**
  * Fetch Json File form internet
  *
+ * @param string $url A url to be fetched
  * @return array
  */
 	private function __fetchJsonFile($url) {
@@ -154,8 +154,9 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 	}
 
 /**
- * RssAggregatorsFeed を更新する
+ * Update RssAggregatorsFeed
  *
+ * @param string $data Data to be saved
  * @return array $rssReader
  */
 	public function updateRssAggregatorsFeed($data) {

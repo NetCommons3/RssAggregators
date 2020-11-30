@@ -9,4 +9,3 @@ echo $this->NetCommonsHtml->css('/rss_aggregators/css/style.css');
 		<?php echo $this->element('RssAggregators/items'); ?>
 	</div>
 </article>
-

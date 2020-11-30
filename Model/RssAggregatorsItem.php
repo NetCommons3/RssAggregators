@@ -1,14 +1,16 @@
 <?php
+
 /**
  * RssAggregatorsItem Model
  *
  * @property RssAggregatorsFeed $RssAggregatorsFeed
  *
-* @author Noriko Arai <arai@nii.ac.jp>
-* @author Your Name <yourname@domain.com>
-* @link http://www.netcommons.org NetCommons Project
-* @license http://www.netcommons.org/license.txt NetCommons License
-* @copyright Copyright 2014, NetCommons Project
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Wataru Nishimoto <watura@willbooster.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('RssAggregatorsAppModel', 'RssAggregators.Model');
@@ -52,8 +54,6 @@ class RssAggregatorsItem extends RssAggregatorsAppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -73,11 +73,20 @@ class RssAggregatorsItem extends RssAggregatorsAppModel {
 		)
 	);
 
+/**
+ * Save data retrieved from json in database
+ *
+ * @param array $json Data retrieved from json
+ * @return void
+ */
 	public function saveFromJson($json) {
-		if ($item = $this->findByContentKey($json["Topic"]["content_key"])) {
+		$item = $this->findByContentKey($json["Topic"]["content_key"]);
+		if ($item) {
 			$json["id"] = $item["RssAggregatorsItem"]["id"];
-			if($item["RssAggregatorsItem"]["modified"] == $json["Topic"]["modified"] &&
-				$item["RssAggregatorsItem"]["url"] == $json["Topic"]["url"] ) {
+			if (
+				$item["RssAggregatorsItem"]["modified"] == $json["Topic"]["modified"] &&
+				$item["RssAggregatorsItem"]["url"] == $json["Topic"]["url"]
+			) {
 				return;
 			}
 		}

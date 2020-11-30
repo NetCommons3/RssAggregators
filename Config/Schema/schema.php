@@ -1,15 +1,59 @@
 <?php 
+/**
+ * Schema file
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @author Wataru Nishimoto <watura@willbooster.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright NetCommons Project
+ */
+
+/**
+ * Schema file
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @author Wataru Nishimoto <watura@willbooster.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
+ * @package NetCommons\Topics\Config\Schema
+ * @SuppressWarnings(PHPMD.LongVariable)
+ * @SuppressWarnings(PHPMD.TooManyFields)
+ */
 class RssAggregatorsSchema extends CakeSchema {
 
+/**
+ * Database connection
+ *
+ * @var string
+ */
 	public $connection = 'master';
 
+/**
+ * before
+ *
+ * @param array $event event
+ * @return bool
+ */
 	public function before($event = array()) {
 		return true;
 	}
 
+/**
+ * after
+ *
+ * @param array $event event
+ * @return void
+ */
 	public function after($event = array()) {
 	}
 
+/**
+ * rss_aggregators_feeds table
+ *
+ * @var array
+ */
 	public $rss_aggregators_feeds = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary', 'comment' => 'ID'),
 		'url' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'School ID', 'charset' => 'utf8mb4'),
@@ -29,6 +73,11 @@ class RssAggregatorsSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'utf8mb4', 'collate' => 'utf8mb4_general_ci', 'engine' => 'InnoDB')
 	);
 
+/**
+ * rss_aggregators_items table
+ *
+ * @var array
+ */
 	public $rss_aggregators_items = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary', 'comment' => 'ID'),
 		'rss_aggregators_feed_id' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false, 'comment' => 'RSSリーダーID'),

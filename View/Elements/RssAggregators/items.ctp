@@ -1,9 +1,12 @@
 <?php
+
 /**
  * view rss items element
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @author Wataru Nishimoto <watura@willbooster.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
@@ -11,7 +14,7 @@
 ?>
 
 <?php if ($rssAggregatorItems) : ?>
-	<?php foreach ($rssAggregatorItems as $item): ?>
+	<?php foreach ($rssAggregatorItems as $item) : ?>
 		<article>
 			<h3 class="clearfix">
 				<a href="<?php echo h($item["RssAggregatorsItem"]["url"]); ?>" target="_blank">

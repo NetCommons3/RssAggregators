@@ -1,4 +1,19 @@
 <?php
+/**
+ * Migration for adding tables
+ *
+ * @author Wataru Nishimoto <watura@willbooster.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright NetCommons Project
+ */
+
+/**
+ * Migration for adding tables
+ *
+ * @package NetCommons\PluginManager\Config\Migration
+ */
 class AddRssAggregatorsModel extends CakeMigration {
 
 /**
