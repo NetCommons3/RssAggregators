@@ -1,3 +1,16 @@
+<header>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			週 <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="#">週</a></li>
+			<li><a href="#">月</a></li>
+			<li><a href="#">年</a></li>
+		</ul>
+	</div>
+</header>
+
 <table class="table table-striped">
 	<tr>
 		<th>学校名</th>
