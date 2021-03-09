@@ -2,6 +2,8 @@
 echo $this->NetCommonsHtml->css('/rss_aggregators/css/style.css');
 ?>
 
+<?php echo $this->element('RssAggregators/table'); ?>
+
 <?php echo $this->element('RssAggregators/header'); ?>
 
 <article>
