@@ -33,9 +33,9 @@
 		data: {
 			labels: ['MM-01', 'MM-02', 'MM-03', 'MM-04', 'MM-05', 'MM-06', 'MM-07'],
 			datasets: [{
-				label: 'A学校',
-				backgroundColor: 'rgb(255, 99, 132)',
-				borderColor: 'rgb(255, 99, 132)',
+				label: 'あなたの学校',
+				backgroundColor: '#337ab7',
+				borderColor: '#337ab7',
 				data: [
 					randomScalingFactor(),
 					randomScalingFactor(),
@@ -47,10 +47,40 @@
 				],
 				fill: false,
 			}, {
+				label: 'A学校',
+				fill: false,
+				backgroundColor: '#dddddd',
+				borderColor: '#dddddd',
+				data: [
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor()
+				],
+			}, {
 				label: 'B学校',
 				fill: false,
-				backgroundColor: 'rgb(54, 162, 235)',
-				borderColor: 'rgb(54, 162, 235)',
+				backgroundColor: '#dddddd',
+				borderColor: '#dddddd',
+				borderDash: [9, 3],
+				data: [
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor(),
+					randomScalingFactor()
+				],
+			}, {
+				label: 'C学校',
+				fill: false,
+				backgroundColor: '#dddddd',
+				borderColor: '#dddddd',
+				borderDash: [3, 3],
 				data: [
 					randomScalingFactor(),
 					randomScalingFactor(),
@@ -111,6 +141,12 @@
 			<td><?php echo 'null'; ?></td>
 		</tr>
 	<?php endforeach; ?>
+	<tr class="info">
+		<td>あなたの学校</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+	</tr>
 </table>
 
 <hr>
