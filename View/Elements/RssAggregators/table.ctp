@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-sm-9">
 		<ul class="nav nav-pills">
-			<li role="presentation"><a href="#">投稿数</a></li>
-			<li role="presentation" class="active"><a href="#">アクセス数</a></li>
+			<li role="presentation" class="active"><a href="#">投稿数</a></li>
+			<li role="presentation"><a href="#">アクセス数</a></li>
 			<li role="presentation"><a href="#">アクセス数/生徒数</a></li>
 		</ul>
 	</div>
@@ -114,7 +114,7 @@
 					display: true,
 					scaleLabel: {
 						display: true,
-						labelString: 'アクセス数'
+						labelString: '投稿数'
 					}
 				}]
 			}
