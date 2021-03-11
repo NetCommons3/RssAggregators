@@ -1,33 +1,24 @@
-<header>
-	<div class="btn-group">
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			週 <span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu">
-			<li><a href="#">週</a></li>
-			<li><a href="#">月</a></li>
-			<li><a href="#">年</a></li>
+<div class="row">
+  <div class="col-sm-9">
+		<ul class="nav nav-pills">
+			<li role="presentation"><a href="#">投稿数</a></li>
+			<li role="presentation" class="active"><a href="#">アクセス数</a></li>
+			<li role="presentation"><a href="#">アクセス数/生徒数</a></li>
 		</ul>
 	</div>
-</header>
-
-<table class="table table-striped">
-	<tr>
-		<th>学校名</th>
-		<th>アクセス数/生徒数</th>
-		<th>アクセス数</th>
-		<th>投稿数</th>
-	</tr>
-	<?php foreach (array_slice($rssAggregatorSchools, 0, 4) as $school => $count) : ?>
-		<?php if (empty($count)) continue; /* Skip "全ての学校". */ ?>
-		<tr>
-			<td><?php echo $school; ?></td>
-			<td><?php echo 'null'; ?></td>
-			<td><?php echo 'null'; ?></td>
-			<td><?php echo $count; ?></td>
-		</tr>
-	<?php endforeach; ?>
-</table>
+  <div class="col-sm-3 text-right">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				週 <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="#">週</a></li>
+				<li><a href="#">月</a></li>
+				<li><a href="#">年</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
 
 <?php $canvasId = uniqid(); ?>
 <canvas id="<?php echo $canvasId; ?>" style="width: 100%; height: 200px; margin-bottom: 1em;"></canvas>
@@ -103,3 +94,23 @@
 	var context = document.getElementById('<?php echo $canvasId; ?>').getContext('2d');
 	new Chart(context, config);
 </script>
+
+<table class="table table-striped">
+	<tr>
+		<th>学校名</th>
+		<th>投稿数</th>
+		<th>アクセス数</th>
+		<th>アクセス数/生徒数</th>
+	</tr>
+	<?php foreach (array_slice($rssAggregatorSchools, 0, 4) as $school => $count) : ?>
+		<?php if (empty($count)) continue; /* Skip "全ての学校". */ ?>
+		<tr>
+			<td><?php echo $school; ?></td>
+			<td><?php echo $count; ?></td>
+			<td><?php echo 'null'; ?></td>
+			<td><?php echo 'null'; ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+
+<hr>
