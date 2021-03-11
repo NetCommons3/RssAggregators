@@ -155,4 +155,4 @@
 	</tr>
 </table>
 
-<hr>
+<hr style="margin-top: 3em;">
