@@ -1,12 +1,12 @@
-<div class="row">
-  <div class="col-sm-9">
+<header class="row">
+  <div class="col-sm-8">
 		<ul class="nav nav-pills">
 			<li role="presentation" class="active"><a href="#">投稿数</a></li>
 			<li role="presentation"><a href="#">アクセス数</a></li>
 			<li role="presentation"><a href="#">アクセス数/生徒数</a></li>
 		</ul>
 	</div>
-  <div class="col-sm-3 text-right">
+  <div class="col-sm-4 text-right">
 		<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				週 <span class="caret"></span>
@@ -17,11 +17,16 @@
 				<li><a href="#">年</a></li>
 			</ul>
 		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-filter" aria-hidden="true"></span> 地図で絞り込む
+			</button>
+		</div>
 	</div>
-</div>
+</header>
 
 <?php $canvasId = uniqid(); ?>
-<canvas id="<?php echo $canvasId; ?>" style="width: 100%; height: 200px; margin-bottom: 1em;"></canvas>
+<canvas id="<?php echo $canvasId; ?>" style="width: 100%; height: 200px; margin-bottom: 2em;"></canvas>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script>
 	var randomScalingFactor = function() {
@@ -127,10 +132,10 @@
 
 <table class="table table-striped">
 	<tr>
-		<th>学校名</th>
-		<th>投稿数</th>
-		<th>アクセス数</th>
-		<th>アクセス数/生徒数</th>
+		<th>学校名 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
+		<th>投稿数 <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span></th>
+		<th>アクセス数 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
+		<th>アクセス数/生徒数 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
 	</tr>
 	<?php foreach (array_slice($rssAggregatorSchools, 0, 4) as $school => $count) : ?>
 		<?php if (empty($count)) continue; /* Skip "全ての学校". */ ?>
