@@ -54,8 +54,9 @@
 			}, {
 				label: 'A学校',
 				fill: false,
-				backgroundColor: '#dddddd',
-				borderColor: '#dddddd',
+				backgroundColor: '#5cb85c',
+				borderColor: '#5cb85c',
+				borderDash: [9, 3, 3, 3],
 				data: [
 					randomScalingFactor(),
 					randomScalingFactor(),
@@ -68,8 +69,8 @@
 			}, {
 				label: 'B学校',
 				fill: false,
-				backgroundColor: '#dddddd',
-				borderColor: '#dddddd',
+				backgroundColor: '#5bc0de',
+				borderColor: '#5bc0de',
 				borderDash: [9, 3],
 				data: [
 					randomScalingFactor(),
@@ -83,8 +84,8 @@
 			}, {
 				label: 'C学校',
 				fill: false,
-				backgroundColor: '#dddddd',
-				borderColor: '#dddddd',
+				backgroundColor: '#f0ad4e',
+				borderColor: '#f0ad4e',
 				borderDash: [3, 3],
 				data: [
 					randomScalingFactor(),
