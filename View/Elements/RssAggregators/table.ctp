@@ -1,4 +1,4 @@
-<header class="row">
+<!-- <header class="row">
   <div class="col-sm-8">
 		<ul class="nav nav-pills">
 			<li role="presentation" class="active"><a href="#">投稿数</a></li>
@@ -129,30 +129,32 @@
 
 	var context = document.getElementById('<?php echo $canvasId; ?>').getContext('2d');
 	new Chart(context, config);
-</script>
+</script> -->
 
 <table class="table table-striped">
 	<tr>
 		<th>学校名 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
 		<th>投稿数 <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span></th>
 		<th>アクセス数 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
+		<!-- <th>生徒数 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th> -->
 		<th>アクセス数/生徒数 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
 	</tr>
-	<?php foreach (array_slice($rssAggregatorSchools, 0, 4) as $school => $count) : ?>
-		<?php if (empty($count)) continue; /* Skip "全ての学校". */ ?>
+	<?php foreach (array_slice($rssAggregatorSchools, 0, $rssAggregatorSetting['display_number']) as $school => $count) : ?>
+		<?php
+			if (empty($count)) {
+				continue;
+			}
+			$this->access = rand(0, 500);
+			$this->student = rand(24, 400);
+		?>
 		<tr>
 			<td><?php echo $school; ?></td>
 			<td><?php echo $count; ?></td>
-			<td><?php echo 'null'; ?></td>
-			<td><?php echo 'null'; ?></td>
+			<td><?php echo $this->access ?></td>
+			<!-- <td><?php echo $this->student ?></td> -->
+			<td><?php echo number_format($this->access / $this->student, 2) ?></td>
 		</tr>
 	<?php endforeach; ?>
-	<tr class="info">
-		<td>あなたの学校</td>
-		<td>0</td>
-		<td>0</td>
-		<td>0</td>
-	</tr>
 </table>
 
 <hr style="margin-top: 3em;">

@@ -15,20 +15,15 @@
 
 <span class="btn-group">
 	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-		<?php echo $rssAggregatorPrefectures[$rssAggregatorSetting['prefecture_id']]; ?>
+		<?php echo $rssAggregatorCities[$rssAggregatorSetting['city_id']]; ?>
 		<span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu" role="menu">
-		<?php foreach ($rssAggregatorPrefectures as $prefectureId => $prefecture) : ?>
+		<?php foreach ($rssAggregatorCities as $cityId => $city) : ?>
 			<li>
 				<?php
-				$params = ['prefecture_id' => $prefectureId, 'school' => '全ての学校'];
-				if (isset($this->Paginator->params['named']['limit'])) {
-					$params['limit'] = $this->Paginator->params['named']['limit'];
-				}
-
-				$params['city_id'] = 0;
-				echo $this->Paginator->link($prefecture, $params);
+				$params = ['city_id' => $cityId, 'school' => '全ての学校'];
+				echo $this->Paginator->link($city, $params);
 				?>
 			</li>
 		<?php endforeach; ?>
