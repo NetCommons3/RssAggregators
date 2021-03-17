@@ -39,6 +39,7 @@ class RssAggregatorsController extends RssAggregatorsAppController {
  */
 	public $components = [
 		'Pages.PageLayout',
+		'Paginator',
 	];
 
 /**
@@ -70,6 +71,10 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 
 		if (isset($this->params['named']["prefecture_id"])) {
 			$rssAggregatorSetting["prefecture_id"] = $this->params['named']["prefecture_id"];
+		}
+
+		if (isset($this->params['named']["city_id"])) {
+			$rssAggregatorSetting["city_id"] = $this->params['named']["city_id"];
 		}
 
 		if (isset($this->params['named']["school"])) {
@@ -117,6 +122,10 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			'rss_aggregators_item_count >' => 0,
 		);
 
+		$cityConds = array(
+			'rss_aggregators_item_count >' => 0,
+		);
+
 		if (
 			isset($rssAggregatorSetting['school'])
 			&& '全ての学校' != $rssAggregatorSetting['school']
@@ -132,8 +141,18 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 		) {
 			$itemsConds['prefecture_id'] = $rssAggregatorSetting['prefecture_id'];
 			$schoolsConds['prefecture_id'] = $rssAggregatorSetting['prefecture_id'];
+			$cityConds['prefecture_id'] = $rssAggregatorSetting['prefecture_id'];
 		} else {
 			$rssAggregatorSetting['prefecture_id'] = '0';
+			$cityConds['city_id'] = '0';
+		}
+
+		if (
+			isset($rssAggregatorSetting['city_id'])
+			&& $rssAggregatorSetting['city_id'] != '0'
+		) {
+			$schoolsConds['city_id'] = $rssAggregatorSetting['city_id'];
+			$itemsConds['city_id'] = $rssAggregatorSetting['city_id'];
 		}
 
 		$items = $this->RssAggregatorsItem->find('all', array(
@@ -142,11 +161,15 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			'limit' => (int)$rssAggregatorSetting['display_number'],
 		));
 
-		$schools = $this->RssAggregatorsFeed->find('list', array(
-			'fields' => array('school', 'rss_aggregators_item_count'),
-			'order' => array('rss_aggregators_item_count DESC'),
-			'conditions' => $schoolsConds,
-		));
+		$this->Paginator->settings = array(
+			'RssAggregatorsFeed' => array(
+				'fields' => array('school', 'rss_aggregators_item_count'),
+				'order' => array('rss_aggregators_item_count DESC'),
+				'conditions' => $schoolsConds,
+				'limit' => 5,
+			)
+		);
+		$schools = $this->Paginator->paginate('RssAggregatorsFeed');
 
 		$prefectures = $this->RssAggregatorsFeed->find('list', array(
 			'fields' => array('prefecture_id', 'prefecture'),
@@ -154,9 +177,16 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			'order' => array('prefecture_id')
 		));
 
+		$cities = $this->RssAggregatorsFeed->find('list', array(
+			'fields' => array('city_id', 'city'),
+			'conditions' => $cityConds,
+			'order' => array('city_id')
+		));
+
 		$this->set('rssAggregatorSetting', $rssAggregatorSetting);
 		$this->set('rssAggregatorSchools', Hash::merge(array('全ての学校' => ''), $schools));
 		$this->set('rssAggregatorPrefectures', Hash::merge(array('都道府県を選択'), $prefectures));
+		$this->set('rssAggregatorCities', Hash::merge(array('市町村を選択'), $cities));
 
 		return $items;
 	}
