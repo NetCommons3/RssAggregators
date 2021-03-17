@@ -28,9 +28,4 @@ $url = NetCommonsUrl::blockUrl($named);
 		<?php endif ?>
 		<!-- <?php echo $this->element('RssAggregators/select_school'); ?> -->
 	</div>
-	<div class="col-sm-4 text-right">
-		<a target="_blank" class="btn btn-info btn-xs " href="<?php echo $this->Paginator->url(Hash::merge($this->Paginator->params['named'], ['ext' => 'xml'])); ?>">
-			<?php echo __d('topics', 'RSS2.0'); ?>
-		</a>
-	</div>
 </header>

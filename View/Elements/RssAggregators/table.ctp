@@ -1,160 +1,33 @@
-<!-- <header class="row">
-  <div class="col-sm-8">
-		<ul class="nav nav-pills">
-			<li role="presentation" class="active"><a href="#">投稿数</a></li>
-			<li role="presentation"><a href="#">アクセス数</a></li>
-			<li role="presentation"><a href="#">アクセス数/生徒数</a></li>
-		</ul>
-	</div>
-  <div class="col-sm-4 text-right">
-		<div class="btn-group">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				週 <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu">
-				<li><a href="#">週</a></li>
-				<li><a href="#">月</a></li>
-				<li><a href="#">年</a></li>
-			</ul>
-		</div>
-		<div class="btn-group">
-			<button type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-filter" aria-hidden="true"></span> 地図で絞り込む
-			</button>
-		</div>
-	</div>
-</header>
-
-<?php $canvasId = uniqid(); ?>
-<canvas id="<?php echo $canvasId; ?>" style="width: 100%; height: 200px; margin-bottom: 2em;"></canvas>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-<script>
-	var randomScalingFactor = function() {
-		return Math.floor(Math.random() * 10);
-	};
-
-	var config = {
-		type: 'line',
-		data: {
-			labels: ['MM-01', 'MM-02', 'MM-03', 'MM-04', 'MM-05', 'MM-06', 'MM-07'],
-			datasets: [{
-				label: 'あなたの学校',
-				backgroundColor: '#337ab7',
-				borderColor: '#337ab7',
-				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
-				],
-				fill: false,
-			}, {
-				label: 'A学校',
-				fill: false,
-				backgroundColor: '#5cb85c',
-				borderColor: '#5cb85c',
-				borderDash: [9, 3, 3, 3],
-				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
-				],
-			}, {
-				label: 'B学校',
-				fill: false,
-				backgroundColor: '#5bc0de',
-				borderColor: '#5bc0de',
-				borderDash: [9, 3],
-				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
-				],
-			}, {
-				label: 'C学校',
-				fill: false,
-				backgroundColor: '#f0ad4e',
-				borderColor: '#f0ad4e',
-				borderDash: [3, 3],
-				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
-				],
-			}]
-		},
-		options: {
-			responsive: true,
-			title: {
-				display: false,
-				text: 'Chart.js Line Chart'
-			},
-			tooltips: {
-				mode: 'index',
-				intersect: false,
-			},
-			hover: {
-				mode: 'nearest',
-				intersect: true
-			},
-			scales: {
-				xAxes: [{
-					display: true,
-				}],
-				yAxes: [{
-					display: true,
-					scaleLabel: {
-						display: true,
-						labelString: '投稿数'
-					}
-				}]
-			}
-		}
-	};
-
-	var context = document.getElementById('<?php echo $canvasId; ?>').getContext('2d');
-	new Chart(context, config);
-</script> -->
-
 <table class="table table-striped">
 	<tr>
-		<th>学校名 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
-		<th>投稿数 <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span></th>
-		<th>アクセス数 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
-		<!-- <th>生徒数 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th> -->
-		<th>アクセス数/生徒数 <span class="glyphicon glyphicon-sort text-muted" aria-hidden="true"></span></th>
+		<th>学校名</th>
+		<th>投稿数</th>
+		<th>アクセス数</th>
+		<th>アクセス数/生徒数</th>
 	</tr>
-	<?php foreach (array_slice($rssAggregatorSchools, 0, $rssAggregatorSetting['display_number']) as $school => $count) : ?>
+	<?php foreach ($rssAggregatorSchools as $school) : ?>
 		<?php
-			if (empty($count)) {
+			if (empty($school['RssAggregatorsFeed']['rss_aggregators_item_count'])) {
 				continue;
 			}
 			$this->access = rand(0, 500);
 			$this->student = rand(24, 400);
 		?>
 		<tr>
-			<td><?php echo $school; ?></td>
-			<td><?php echo $count; ?></td>
+			<td><?php echo $school['RssAggregatorsFeed']['school']; ?></td>
+			<td><?php echo $school['RssAggregatorsFeed']['rss_aggregators_item_count']; ?></td>
 			<td><?php echo $this->access ?></td>
-			<!-- <td><?php echo $this->student ?></td> -->
 			<td><?php echo number_format($this->access / $this->student, 2) ?></td>
 		</tr>
 	<?php endforeach; ?>
 </table>
 
-<hr style="margin-top: 3em;">
+<?php echo $this->element('NetCommons.paginator'); ?>
+
+<div class="text-right">
+	<a target="_blank" class="btn btn-info btn-xs " href="<?php echo $this->Paginator->url(Hash::merge($this->Paginator->params['named'], ['ext' => 'xml'])); ?>">
+		<?php echo __d('topics', 'RSS2.0'); ?>
+	</a>
+</div>
+
+<hr>

@@ -39,6 +39,7 @@ class RssAggregatorsController extends RssAggregatorsAppController {
  */
 	public $components = [
 		'Pages.PageLayout',
+		'Paginator',
 	];
 
 /**
@@ -160,11 +161,15 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			'limit' => (int)$rssAggregatorSetting['display_number'],
 		));
 
-		$schools = $this->RssAggregatorsFeed->find('list', array(
-			'fields' => array('school', 'rss_aggregators_item_count'),
-			'order' => array('rss_aggregators_item_count DESC'),
-			'conditions' => $schoolsConds,
-		));
+		$this->Paginator->settings = array(
+			'RssAggregatorsFeed' => array(
+				'fields' => array('school', 'rss_aggregators_item_count'),
+				'order' => array('rss_aggregators_item_count DESC'),
+				'conditions' => $schoolsConds,
+				'limit' => 5,
+			)
+		);
+		$schools = $this->Paginator->paginate('RssAggregatorsFeed');
 
 		$prefectures = $this->RssAggregatorsFeed->find('list', array(
 			'fields' => array('prefecture_id', 'prefecture'),
