@@ -81,6 +81,12 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			$rssAggregatorSetting["school"] = $this->params['named']["school"];
 		}
 
+		if (isset($this->params['named']["range"])) {
+			$rssAggregatorSetting["range"] = $this->params['named']["range"];
+		} else {
+			$rssAggregatorSetting["range"] = 'week';
+		}
+
 		$this->set('rssAggregatorSetting', $rssAggregatorSetting);
 
 		if ($this->request->is('xml')) {

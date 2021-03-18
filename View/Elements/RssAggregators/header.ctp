@@ -18,6 +18,7 @@ $url = NetCommonsUrl::blockUrl($named);
 
 <header class="row">
 	<div class="col-sm-8">
+		<?php echo $this->element('RssAggregators/select_range'); ?>
 		<!-- <?php echo $this->DisplayNumber->dropDownToggle(array(
 		'currentLimit' => $rssAggregatorSetting['display_number'],
 		'url' => $url
