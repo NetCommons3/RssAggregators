@@ -119,15 +119,16 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 			if (in_array($school["RssAggregatorsFeed"]["url"], $ignore)) {
 				continue;
 			}
-			$url = 'https://' . $school["RssAggregatorsFeed"]["url"];
-			print ($url . "/topics/topics/index/days:7.json\n");
-			$feed = $this->__fetchJsonFile($url . '/topics/topics/index/days:7.json');
+			$schoolUrl = 'https://' . $school["RssAggregatorsFeed"]["url"];
+			$jsonUrl = $schoolUrl . '/topics/topics/index/days:14.json';
+			print ($jsonUrl . "\n");
+			$feed = $this->__fetchJsonFile($jsonUrl);
 			if (!isset($feed["topics"])) {
 				continue;
 			}
 			foreach ($feed["topics"] as $item) {
 				$item["Topic"]['author'] = $school["RssAggregatorsFeed"]["school"];
-				$item["Topic"]['school_url'] = $url;
+				$item["Topic"]['school_url'] = $schoolUrl;
 				$item["Topic"]['rss_aggregators_feed_id'] = $school["RssAggregatorsFeed"]["id"];
 				$this->RssAggregatorsItem->saveFromJson($item);
 				$itemCount++;
