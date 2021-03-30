@@ -120,7 +120,7 @@ class RssAggregatorsFeed extends RssAggregatorsAppModel {
 				continue;
 			}
 			$schoolUrl = 'https://' . $school["RssAggregatorsFeed"]["url"];
-			$jsonUrl = $schoolUrl . '/topics/topics/index/days:14.json';
+			$jsonUrl = $schoolUrl . '/topics/topics/index/days:28.json';
 			print ($jsonUrl . "\n");
 			$feed = $this->__fetchJsonFile($jsonUrl);
 			if (!isset($feed["topics"])) {
