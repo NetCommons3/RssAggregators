@@ -183,7 +183,7 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 
 		$this->Paginator->settings = array(
 			'RssAggregatorsFeed' => array(
-				'fields' => array('school', 'rss_aggregators_item_count'),
+				'fields' => array('school', 'rss_aggregators_item_count', 'url'),
 				'order' => array('rss_aggregators_item_count DESC'),
 				'conditions' => $schoolsConds,
 				'limit' => 5,

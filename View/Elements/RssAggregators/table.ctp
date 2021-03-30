@@ -24,12 +24,13 @@
 			if (empty($school['RssAggregatorsFeed']['rss_aggregators_item_count'])) {
 				continue;
 			}
-			$this->access = rand(0, 500);
+			$initParmsStr = h(json_encode($school['RssAggregatorsFeed']['url']));
+			$initParmsStr .= ', ' . h(json_encode($rssAggregatorSetting['range']));
 		?>
-		<tr>
+		<tr ng-controller="RssAggregatorsItem" ng-init="initialize(<?php echo $initParmsStr; ?>)" ng-cloak>
 			<td><?php echo $school['RssAggregatorsFeed']['school']; ?></td>
-			<td><?php echo $school['RssAggregatorsFeed']['rss_aggregators_item_count']; ?></td>
-			<td><?php echo $this->access ?></td>
+			<td>{{topicCount}}</td>
+			<td>{{pageViewCount}}</td>
 		</tr>
 	<?php endforeach; ?>
 </table>
