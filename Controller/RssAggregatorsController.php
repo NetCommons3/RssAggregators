@@ -81,6 +81,12 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			$rssAggregatorSetting["school"] = $this->params['named']["school"];
 		}
 
+		if (isset($this->params['named']["range"])) {
+			$rssAggregatorSetting["range"] = $this->params['named']["range"];
+		} else {
+			$rssAggregatorSetting["range"] = 'week';
+		}
+
 		$this->set('rssAggregatorSetting', $rssAggregatorSetting);
 
 		if ($this->request->is('xml')) {
@@ -155,6 +161,20 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 			$itemsConds['city_id'] = $rssAggregatorSetting['city_id'];
 		}
 
+		if (
+			isset($rssAggregatorSetting['range'])
+		) {
+			$date = new DateTime(date("Y-m-d"));
+
+			if ($rssAggregatorSetting['range'] == 'week') {
+				$date->modify('-7 day');
+			} elseif ($rssAggregatorSetting['range'] == 'month') {
+				$date->modify('-28 day');
+			}
+
+			$itemsConds['publish_start >='] = $date->format('Y-m-d');
+		}
+
 		$items = $this->RssAggregatorsItem->find('all', array(
 			'conditions' => $itemsConds,
 			'order' => array('publish_start DESC'),
@@ -163,12 +183,13 @@ class RssAggregatorsController extends RssAggregatorsAppController {
 
 		$this->Paginator->settings = array(
 			'RssAggregatorsFeed' => array(
-				'fields' => array('school', 'rss_aggregators_item_count'),
+				'fields' => array('school', 'rss_aggregators_item_count', 'url'),
 				'order' => array('rss_aggregators_item_count DESC'),
 				'conditions' => $schoolsConds,
 				'limit' => 5,
 			)
 		);
+
 		$schools = $this->Paginator->paginate('RssAggregatorsFeed');
 
 		$prefectures = $this->RssAggregatorsFeed->find('list', array(
